@@ -36,3 +36,13 @@ Route::get('/filieres/delete/{id}', [FiliereController::class, 'destroy']);
 Route::get('/filieres/edit/{id}', [FiliereController::class, 'edit']);
 Route::put('/filieres/update/{id}', [FiliereController::class, 'update']);
 Route::get('/filieres/show/{id}', [FiliereController::class, 'show']);
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
