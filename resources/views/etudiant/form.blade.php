@@ -37,7 +37,16 @@
             @endforeach
         </select>
 
-        
+        <!-- Champ pour sélectionner l'utilisateur -->
+    <label for="user_id">Utilisateur:</label>
+    <select name="user_id">
+        @foreach($users as $user)
+            <option value="{{ $user->id }}" {{ isset($etudiant) && $etudiant->user_id == $user->id ? 'selected' : '' }}>
+                {{ $user->name }} <!-- Assurez-vous d'ajuster le nom de l'attribut utilisateur en conséquence -->
+            </option>
+        @endforeach
+    </select>
+    <!-- Fin du champ pour sélectionner l'utilisateur -->
 
         <button type="submit">{{ isset($etudiant) ? 'Modifier' : 'Enregistrer' }}</button>
     </form>

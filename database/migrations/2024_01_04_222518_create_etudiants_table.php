@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string("prenom");
             $table->string("sexe");
             $table->unsignedBigInteger('filiere_id');
-            $table->foreign('filiere_id')->references('id')->on('filieres');    
+            $table->foreign('filiere_id')->references('id')->on('filieres');
+                
             $table->timestamps();
             
         });

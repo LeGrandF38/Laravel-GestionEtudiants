@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Filiere;
 use App\Models\Etudiant;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User;
 
 class EtudiantController extends Controller
 {
@@ -19,8 +20,12 @@ class EtudiantController extends Controller
 
     public function create()
     {
-        $filieres = Filiere::all();
-        return view('etudiant.form', compact('filieres'));
+        // $filieres = Filiere::all();
+        // return view('etudiant.form', compact('filieres'));
+        $users = User::all(); // Récupérez la liste des utilisateurs
+        $filieres = Filiere::all(); // Récupérez également la liste des filières si nécessaire
+    
+        return view('etudiant.form', compact('users', 'filieres'));
     }
 
     public function store(Request $request)
@@ -28,9 +33,10 @@ class EtudiantController extends Controller
         // Validation des données du formulaire
         $request->validate([
             'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'sexe' => 'required|string|max:10',
-            'filiere_id' => 'required|exists:filieres,id',
+        'prenom' => 'required|string|max:255',
+        'sexe' => 'required|string|max:10',
+        'filiere_id' => 'required|exists:filieres,id',
+        'user_id' => 'required|exists:users,id',
         ]);
 
         Etudiant::create($request->all());
@@ -48,7 +54,8 @@ class EtudiantController extends Controller
     {
         $etudiant = Etudiant::findOrFail($id);
         $filieres = Filiere::all();
-        return view('etudiant.form', compact('etudiant', 'filieres', 'id'));
+        $users = User::all(); 
+        return view('etudiant.form', compact('etudiant', 'users', 'filieres', 'id'));
     }
 
     public function update(Request $request, $id)
@@ -59,6 +66,7 @@ class EtudiantController extends Controller
             'prenom' => 'required|string|max:255',
             'sexe' => 'required|string|max:10',
             'filiere_id' => 'required|exists:filieres,id',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         $etudiant = Etudiant::findOrFail($id);
