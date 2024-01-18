@@ -20,8 +20,7 @@ class EtudiantController extends Controller
 
     public function create()
     {
-        // $filieres = Filiere::all();
-        // return view('etudiant.form', compact('filieres'));
+      
         $users = User::all(); // Récupérez la liste des utilisateurs
         $filieres = Filiere::all(); // Récupérez également la liste des filières si nécessaire
     
