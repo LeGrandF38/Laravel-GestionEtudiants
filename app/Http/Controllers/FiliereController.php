@@ -3,62 +3,69 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Filiere;
+
 
 class FiliereController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $filieres = Filiere::all();
+        return view('filiere.index', compact('filieres'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+   
     public function create()
     {
-        //
+        return view('filiere.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+   
     public function store(Request $request)
     {
-        //
+        // Validation des données du formulaire
+        $request->validate([
+            'nom' => 'required|string|max:255',
+        ]);
+
+        Filiere::create($request->all());
+        return redirect()->to('/filieres')->with('success', 'Filière ajoutée avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+   
+    public function show($id)
     {
-        //
+        $filiere = Filiere::findOrFail($id);
+        return view('filiere.show', compact('filiere', 'id'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+   
+    public function edit($id)
     {
-        //
+        $filiere = Filiere::findOrFail($id);
+        return view('filiere.form', compact('filiere', 'id'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+   
+    public function update(Request $request, $id)
     {
-        //
+        
+        $request->validate([
+            'nom' => 'required|string|max:255',
+        ]);
+
+        $filiere = Filiere::findOrFail($id);
+        $filiere->update($request->all());
+
+        return redirect()->to('/filieres')->with('success', 'Filière mise à jour avec succès.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    
+    public function destroy($id)
     {
-        //
+        $filiere = Filiere::findOrFail($id);
+        $filiere->delete();
+
+        return redirect()->to('/filieres')->with('success', 'Filière supprimée avec succès.');
     }
 }

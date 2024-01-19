@@ -38,10 +38,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
     Route::get('filieres', [FiliereAPIController::class, 'index']);
-    Route::post('/api/filieres', [FiliereAPIController::class, 'store']);
-    Route::get('/api/filieres/{id}', [FiliereAPIController::class, 'show']);
-    Route::put('/api/filieres/{id}', [FiliereAPIController::class, 'update']);
-    Route::delete('/api/filieres/{id}', [FiliereAPIController::class, 'destroy']);
+    Route::post('filieres', [FiliereAPIController::class, 'store']);
+    Route::get('filieres/{id}', [FiliereAPIController::class, 'show']);
+    Route::put('filieres/{id}', [FiliereAPIController::class, 'update']);
+    Route::delete('filieres/{id}', [FiliereAPIController::class, 'destroy']);
 
 
 // Routes pour les filières
